@@ -13,6 +13,7 @@
 
     let selectedCake = null;
 
+
     fetch('http://localhost:3000/cakes') .then(response=>{
       if(!response.ok){
         throw new Error('Response was not ok');
@@ -20,31 +21,39 @@
       return response.json()
 
     })
-    .then(cakes=>{
-    
+    .then(cakes=> populateCakeList(cakes));
+
+
+    function populateCakeList(cakes){
     cakeList.innerHTML='';
     cakes.forEach(cake=>{
     const li = document.createElement('li');
     li.textContent= cake.name;
    
-    li.addEventListener('click',()=>{
+    li.addEventListener('click',()=> displayCakeDetails(cake));
+     cakeList.appendChild(li); 
+
+  });
+}
+function displayCakeDetails(cake){
       selectedCake =cake;
       cakeName.textContent= cake.name;
       cakeImg.src = cake.image_url;
       cakeDesc.textContent=cake.description;
-      editDesc.textContent =cake.description
+      editDesc.value =cake.description;
+      populateReview(cake.reviews);
 
+}
+function populateReview(reviews){
       reviewList.innerHTML='';
-      
-      cake.reviews.forEach(review =>{
+      reviews.forEach(review =>{
         const reviewItem =document.createElement('li');
         reviewItem.textContent=review;
         reviewList.appendChild(reviewItem);
       });
-    });
-    cakeList.appendChild(li); 
-});
-})
+    }
+  
+
 //add review event
 
 addReview.addEventListener('click',(event)=>{
@@ -64,7 +73,8 @@ addReview.addEventListener('click',(event)=>{
     }
   }
   
-  })
+  });
+
   //add cake description event
   updateCake.addEventListener('click',(event)=>{
     event.preventDefault();
@@ -78,7 +88,8 @@ addReview.addEventListener('click',(event)=>{
       }
     }
 
-  })
+  });
+
  
 
 
