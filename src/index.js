@@ -93,7 +93,7 @@ addReview.addEventListener('click',(event)=>{
   });
 
  
-//delete review
+//delete review from DOM
 
 function deleteReviews(){
 const reviews=reviewList.querySelectorAll('li');
@@ -105,5 +105,6 @@ reviews.forEach (review=>{
   });
 });
 }
+
 
 
