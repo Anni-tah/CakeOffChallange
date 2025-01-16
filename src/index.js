@@ -51,6 +51,7 @@ function populateReview(reviews){
         reviewItem.textContent=review;
         reviewList.appendChild(reviewItem);
       });
+      deleteReviews();
     }
   
 
@@ -87,11 +88,22 @@ addReview.addEventListener('click',(event)=>{
         
       }
     }
+   
 
   });
 
  
+//delete review
 
+function deleteReviews(){
+const reviews=reviewList.querySelectorAll('li');
+reviews.forEach (review=>{
+  review.addEventListener('click', (event)=>{
+    event.preventDefault();
+    review.remove();
 
+  });
+});
+}
 
 
